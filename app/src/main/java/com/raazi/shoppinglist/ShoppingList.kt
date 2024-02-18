@@ -59,8 +59,18 @@ fun ShoppingListApp() {
             .fillMaxSize()
             .padding(16.dp)) {
             items(sItems) {
-                ShoppingListItem(item = it, onEditClick = { /*TODO*/ }) {
-
+                    item ->
+                if(item.isEditing){
+                    ShoppingListEditor(item = item, onEditComplete = {
+                        editedName, editedQuantity ->
+                        sItems = sItems.map( it.copy(isEditing = false)
+                        val editedItem = sItems.find(it.id == item.id )}
+                    })
+                }
+                else {
+                    ShoppingListItem(item = , onEditClick = { /*TODO*/ }) {
+                        
+                    }
                 }
             }
         }
@@ -155,8 +165,8 @@ fun ShoppingListEditor(item: ShoppingList, onEditComplete: (String, Int) -> Unit
                     .wrapContentSize()
                     .padding(8.dp))
             BasicTextField(
-                value = editedName,
-                onValueChange = { editedName = it },
+                value = editedQuantity,
+                onValueChange = { editedQuantity = it },
                 singleLine = true,
                 modifier= Modifier
                     .wrapContentSize()
@@ -208,4 +218,4 @@ data class ShoppingList(val id:Int,
                         var isEditing:Boolean = false)
 
 
-// streak commit
+
