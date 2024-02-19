@@ -62,15 +62,19 @@ fun ShoppingListApp() {
                     item ->
                 if(item.isEditing){
                     ShoppingListEditor(item = item, onEditComplete = {
-                        editedName, editedQuantity ->
-                        sItems = sItems.map( it.copy(isEditing = false)
-                        val editedItem = sItems.find(it.id == item.id )}
+                        editedName, editedQuantity -> sItems = sItems.map{it.copy(isEditing=false)}
+                        val editedItem = sItems.find{it.id == item.id }
+                        editedItem?.let{
+                            it.name= editedName
+                            it.quantity= editedQuantity
+                        }
                     })
                 }
                 else {
-                    ShoppingListItem(item = , onEditClick = { /*TODO*/ }) {
-                        
-                    }
+                    ShoppingListItem(item = item , onEditClick = {
+                        sItems=sItems.map{it.copy(isEditing = (it.id==item.id))}
+                    },
+                        onDeleteClick = {sItems = sItems-item})
                 }
             }
         }
